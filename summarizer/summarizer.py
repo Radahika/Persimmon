@@ -12,6 +12,9 @@
 
 '''
 
+import os
+import sys
+
 import pdb
 
 from pattern.en import tokenize
@@ -20,9 +23,15 @@ from pattern.vector import Document, LEMMA
 import networkx
 import operator
 
+def summarize_file(file_name):
+    file_path = os.path.join("samples", file_name)
+    f = open(file_path)
+    text = f.read()
+    print summarize(text)
+
+
 def summarize(raw_text):
     tokens = tokenize(raw_text)
-    print tokens
 
     documents = []
     for position, sentence in enumerate(tokens):
@@ -68,6 +77,9 @@ def jaccard_similarity(group1, group2):
 
 
 if __name__ == "__main__":
-    f = open("../samples/alaska.txt", "r")
-    text = f.read()
-    print summarize(text)
+    filename = ""
+    if len(sys.argv) == 1:
+        filename = "alaska.txt"
+    else:
+        filename = sys.argv[1]
+    print summarize_file(filename)
