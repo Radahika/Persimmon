@@ -27,7 +27,22 @@ def summarize(raw_text):
             document = Document(string=sentence, name=position, stemmer=LEMMA)
             documents.append(document)
 
-    print documents
+    edges = []
+    for document in documents:
+        for other_document in documents:
+            if document.name == other_document.name:
+                continue
+            doc_words = document.features
+            other_doc_words = other_document.features
+            similarity = jaccard_similarity(doc_words, other_doc_words)
+            if similarity > 0:
+                edges.append((document.name, other_document.name, similarity))
+    print edges
+
+def jaccard_similarity(group1, group2):
+    set1 = set(group1)
+    set2 = set(group2)
+    return float(len(set1.intersection(set2))) / len(set1.union(set2))
 
 
 if __name__ == "__main__":
