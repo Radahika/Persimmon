@@ -68,6 +68,6 @@ def jaccard_similarity(group1, group2):
 
 
 if __name__ == "__main__":
-    f = open("samples/alaska.txt", "r")
+    f = open("../samples/alaska.txt", "r")
     text = f.read()
     print summarize(text)
