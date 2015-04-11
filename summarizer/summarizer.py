@@ -59,7 +59,7 @@ def summarize(raw_text):
         sentence = tokens[sentence_number]
         summary.append(sentence)
 
-    return summary
+    return " ".join(summary)
 
 def jaccard_similarity(group1, group2):
     set1 = set(group1)
