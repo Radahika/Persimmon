@@ -17,6 +17,9 @@ import pdb
 from pattern.en import tokenize
 from pattern.vector import Document, LEMMA
 
+import networkx
+import operator
+
 def summarize(raw_text):
     tokens = tokenize(raw_text)
     print tokens
@@ -37,7 +40,26 @@ def summarize(raw_text):
             similarity = jaccard_similarity(doc_words, other_doc_words)
             if similarity > 0:
                 edges.append((document.name, other_document.name, similarity))
-    print edges
+
+    graph = networkx.DiGraph()
+    graph.add_weighted_edges_from(edges)
+    page_rank = networkx.pagerank(graph)
+
+    sorted_ranks = sorted(page_rank.items(), key=operator.itemgetter(1), reverse=True)
+
+    summary = []
+    sentence_numbers = []
+    for i in range(5):
+        node = sorted_ranks[i]
+        sentence_numbers.append(node[0])
+
+    sentence_numbers = sorted(sentence_numbers)
+
+    for sentence_number in sentence_numbers:
+        sentence = tokens[sentence_number]
+        summary.append(sentence)
+
+    return summary
 
 def jaccard_similarity(group1, group2):
     set1 = set(group1)
