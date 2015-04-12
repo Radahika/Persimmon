@@ -25,8 +25,7 @@ import nltk.data
 import networkx
 import operator
 
-def summarize_file(file_name):
-    file_path = os.path.join("samples", file_name)
+def summarize_file(file_path):
     f = codecs.open(file_path, "r", "utf-8")
     text = f.read()
     print summarize(text)

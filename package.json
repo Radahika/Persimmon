@@ -1,0 +1,28 @@
+{
+  "name": "Persimmon",
+  "version": "1.0.0",
+  "description": "TBD",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Radahika/Persimmon.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Radahika/Persimmon/issues"
+  },
+  "homepage": "https://github.com/Radahika/Persimmon",
+  "devDependencies": {
+    "browser-sync": "^2.5.3",
+    "browserify": "^9.0.8",
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.10.0",
+    "gulp-run": "^1.6.7",
+    "reactify": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

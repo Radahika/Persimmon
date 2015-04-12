@@ -1,0 +1,22 @@
+{
+  "name": "Persimmon",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Radahika/Persimmon",
+  "authors": [
+    "Kevin Hwang <k3vinhwang@gmail.com>",
+    "Radhika Marvin <radhika.marvin@yahoo.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "jquery": "~2.1.3",
+    "react": "~0.13.1"
+  }
+}
