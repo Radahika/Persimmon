@@ -41,22 +41,25 @@ $(document).ready(function () {
       allPosts.push(post);
     }
   };
+
+  /*
   var requestNext = function (afterToken) {
-    FB.api("/me/home", { after: afterToken }, function (response) {
+    FB.api("/me/home", { after: afterToken, limit: 100 }, function (response) {
       parseHomeFeed(response.data);
+    });
+  };
+ */
+
+  var requestHome = function () {
+    FB.api("/me/home", { limit: 500 }, function (response) {
+      parseHomeFeed(response.data);
+
       $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
         console.log(response);
       }, "json");
-    });
-  };
 
-  var requestHome = function () {
-    FB.api("/me/home", function (response) {
-      console.log(response);
-      parseHomeFeed(response.data);
-
-      var after = response.paging.cursors.after;
-      requestNext(after);
+      //var after = response.paging.cursors.after;
+      //requestNext(after);
     });
   };
 });
