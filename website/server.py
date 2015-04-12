@@ -34,8 +34,11 @@ def filter_page():
         text = post.get("message", "")
         if len(text):
             summary = summarizer.summarize(text)
-            post["summary"] = summary
-            final_posts.append(post)
+            final_post = {}
+            final_post["author"] = post.get("from").get("name")
+            final_post["text"] = post.get("message")
+            final_post["summary"] = summary
+            final_posts.append(final_post)
 
     return jsonify({"posts" : final_posts })
 
