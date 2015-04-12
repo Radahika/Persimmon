@@ -14,30 +14,34 @@
 
 import os
 import sys
+import codecs
 
 import pdb
 
-from pattern.en import tokenize
 from pattern.vector import Document, LEMMA
+
+import nltk.data
 
 import networkx
 import operator
 
 def summarize_file(file_name):
     file_path = os.path.join("samples", file_name)
-    f = open(file_path)
+    f = codecs.open(file_path, "r", "utf-8")
     text = f.read()
     print summarize(text)
 
 
 def summarize(raw_text):
-    tokens = tokenize(raw_text)
+    sentence_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    tokens = sentence_tokenizer.tokenize(raw_text.strip())
 
     documents = []
     for position, sentence in enumerate(tokens):
         if len(sentence.split(" ")) > 5:
             document = Document(string=sentence, name=position, stemmer=LEMMA)
-            documents.append(document)
+            if len(document.features) > 0:
+                documents.append(document)
 
     edges = []
     for document in documents:
@@ -82,4 +86,4 @@ if __name__ == "__main__":
         filename = "alaska.txt"
     else:
         filename = sys.argv[1]
-    print summarize_file(filename)
+    summarize_file(filename)
