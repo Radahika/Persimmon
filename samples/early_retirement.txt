@@ -1,0 +1,61 @@
+Here at Mr. Money Mustache, we talk about all sorts of fancy stuff like investment fundamentals, lifestyle changes that save money, entrepreneurial ideas that help you make money, and philosophy that allows you to make these changes a positive thing instead of a sacrifice.
+
+In addition, the Internet presents us with retirement calculators, competing opinions from the mainstream media, financial doomsayers, unpredictable inflation, and a wide distribution of income and spending patterns between readers.
+
+I reviewed my own path to age-30 retirement in “A brief history of the ‘Stash“, then I did a hypothetical calculation using two average teacher salaries to show how long it would take them to retire in “The Race to Retirement – Revisited“.
+
+Because of this torrent of information, people tend to become overwhelmed and say things like,
+
+“Yeah, good for you Mr. Money Mustache, but how can I possibly know when I’ll have enough to retire myself, with a completely different lifestyle?”
+ 
+
+Well, I have a surprise for you. It turns out that when it boils right down to it, your time to reach retirement depends on only one factor:
+
+Your savings rate, as a percentage of your take-home pay
+If you want to break it down just a bit further, your savings rate is determined entirely by these two things:
+How much you take home each year
+How much you can live on
+While the numbers themselves are quite intuitive and easy to figure out, the relationship between these two numbers  is a bit surprising.
+
+If are spending 100% (or more) of your income, you will never be prepared to retire, unless someone else is doing the saving for you (wealthy parents, social security, pension fund, etc.). So your work career will be Infinite.
+
+If you are spending 0% of your income (you live for free somehow), and can maintain this after retirement, you can retire right now. So your working career can be Zero.
+
+In between, there are some very interesting considerations. As soon as you start saving and investing your money, it starts earning money all by itself. Then the earnings on those earnings start earning their own money. It can quickly become a runaway exponential snowball of income.
+
+As soon as this income is enough to pay for your living expenses, while leaving enough of the gains invested each year to keep up with inflation, you are ready to retire.
+
+If you drew this on a graph, it would not be a straight line, it would be nice curved exponential graph, like this one from the Early Retirement Extreme book:
+
+If you save a reasonable percentage of your take-home pay, like 50%, and live on the remaining 50%, you’ll be Ready to Rock (aka “financially independent”) in a reasonable number of years – about 16 according to this chart and a more detailed spreadsheet* I just made for myself to re-create the equation that generated the graph.
+
+So let’s take the graph above and make it even simpler. I’ll make some conservative assumptions for you, and you can just focus on saving the biggest percentage of your take-home pay that you can. The table below will tell you a nice ballpark figure of how many years it will take you to become financially independent.
+
+Assumptions:
+
+You can earn 5% investment returns after inflation during your saving years
+You’ll live off of the  “4% safe withdrawal rate” after retirement, with some flexibility in your spending during recessions.
+You want your ‘Stash to last forever, you’ll only be touching the gains, since this income may be sustaining you for seventy years or so. Just think of this assumption as a nice generous Safety Margin.
+Here’s how many years you will have to work for a range of possible savings rates, starting from a net worth of zero:
+
+It’s quite amazing, especially at the less Mustachian end of the spectrum. A middle-class family with a 50k take-home pay who saves 10% of their income ($5k) is actually better than average these days. But unfortunately, “better than average” is still pretty bad, since they are on track for having to work for 51 years.
+
+But simply cutting cable TV and a few lattes would instantly boost their savings to 15%, allowing them to retire 8 years earlier!! Are cable TV and Starbucks worth having two income earners each work an extra eight years for???
+
+The most important thing to note is that cutting your spending rate is much more powerful than increasing your income. The reason is that every permanent drop in your spending has a double effect:
+
+it increases the amount of money you have left over to save each month
+and it permanently decreases the amount you’ll need every month for the rest of your life
+So your lifetime passive income goes up due to having a larger investment nest egg, and it more easily meets your needs, because you’ve developed more skill at living efficiently and thus you need less.
+
+If want to retire within 10 years, the formula is right there in front of you – simply live on 35% of your take-home pay**, which is approximately what I did without even realizing it during my own younger years. The only reason Mustachians will remain a rare breed, is because this article will never appear in USA Today. (Or if it does, people will be too busy complaining about how it can’t be done, rather than figuring out how to do it)
+
+ 
+
+*If you want to play with the (rather basic) spreadsheet I made to generate this table, you can download it in OpenOffice format (.ods) here: Retirement Savings vs. Years
+
+** definition of take-home pay: gross income minus all taxes. Remember to add back in any 401k or other savings deductions to the paycheck you see, since these are really part of what you are “taking home” – you just happen to be saving it automatically.
+
+Note on how to track spending: we do almost all spending using the best rewards credit card I can get my hands on, and the rest by automated bank debit (checks or cash only for things that strictly require it, like Craigslist purchases). So at the end of the year just need to review the online statements for card and bank.
+
+Recently this has been revolutionized by signing up for an account at Mint.com. Same basic idea, but it lets me see up-to-the-minute spending that is automatically categorized into nice pie charts, etc. If a figure looks surprisingly high, you can click in to see the detailed transactions in the various accounts that were added together to make that category. Quite futuristic.
