@@ -36,8 +36,6 @@ def summarize_file(file_name):
 def summarize(raw_text):
     tokens = tokenize(raw_text)
 
-    pdb.set_trace()
-
     documents = []
     for position, sentence in enumerate(tokens):
         if len(sentence.split(" ")) > 5:
