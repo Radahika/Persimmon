@@ -7,7 +7,6 @@
     "Radhika Marvin <radhika.marvin@yahoo.com>"
   ],
   "license": "MIT",
-  "directory": "./website/static/bower_components",
   "ignore": [
     "**/.*",
     "node_modules",
