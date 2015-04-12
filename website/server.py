@@ -28,7 +28,16 @@ def filter_page():
 
     posts = json.loads(post_string)
 
-    return jsonify({"posts" : posts })
+    final_posts = []
+
+    for post in posts:
+        text = post.get("message", "")
+        if len(text):
+            summary = summarizer.summarize(text)
+            post["summary"] = summary
+            final_posts.append(post)
+
+    return jsonify({"posts" : final_posts })
 
 
 if __name__ == "__main__":
