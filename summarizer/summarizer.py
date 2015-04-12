@@ -62,8 +62,9 @@ def summarize(raw_text):
     summary = []
     sentence_numbers = []
     for i in range(5):
-        node = sorted_ranks[i]
-        sentence_numbers.append(node[0])
+        if i < len(sorted_ranks):
+            node = sorted_ranks[i]
+            sentence_numbers.append(node[0])
 
     sentence_numbers = sorted(sentence_numbers)
 
