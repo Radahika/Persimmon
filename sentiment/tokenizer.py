@@ -18,11 +18,15 @@ def tokenize(text):
                 tokens[i+1] = '!' + stemmer.stem(words[i+1])
                 tokens[i] = stemmer.stem(words[i])
                 tokens[i-1] = '!' + stemmer.stem(words[i-1])
+                #tokens[i+1] = '!' + words[i+1]
+                #tokens[i] = words[i]
+                #tokens[i-1] = words[i-1]
                 i += 2
                 continue
             except IndexError:
                 pass
         tokens[i] = stemmer.stem(words[i])
+        #tokens[i] = words[i]
         i += 1
     return tokens
 

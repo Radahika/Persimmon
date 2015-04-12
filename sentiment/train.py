@@ -1,6 +1,7 @@
 from tokenizer import tokenize
-import os, codecs
+import os, codecs, math
 import pdb
+from nltk.corpus import sentiwordnet as swn
 
 class Trainer:
 
@@ -9,13 +10,13 @@ class Trainer:
         self.labels = []
         self.doc_counts = {}
 
-        for filename in os.listdir('samples'):
+        for filename in os.listdir('samples/training'):
             if filename[0] != '.':
-                file_path = os.path.join("samples", filename)
+                file_path = os.path.join("samples/training", filename)
                 f = codecs.open(file_path, "r", "utf-8")
-                first = f.readline()
-                label = first.split()[0]
                 text = f.read()
+                i = text.find('\n') + 1
+                label, text = text.partition('\n')[0], text[i:]
                 try:
                     self.train(text, label)
                 except UnicodeDecodeError:
@@ -56,10 +57,10 @@ class Trainer:
         self.increment_doc_count(label)
 
     def doc_count(self, label):
-        return len(self.doc_counts[label])
+        return self.doc_counts[label]
 
     def doc_inverse_count(self, label):
-        return float(self.total_doc_count) - self.doc_count(label)
+        return self.total_doc_count() - self.doc_count(label)
 
     def total_doc_count(self):
         total = 0
@@ -77,9 +78,10 @@ class Trainer:
     def stem_label_count(self, label, word):
         if word in self.db[label]:
             return float(self.db[label][word])
+        return 0
 
     def stem_inverse_label_count(self, label, word):
-        return float(self.stem_total_count(word)) - self.stem_label_count(label, word)
+        return self.stem_total_count(word) - self.stem_label_count(label, word)
 
     def guess(self, text):
         doc_counts = {}
@@ -90,16 +92,15 @@ class Trainer:
             doc_counts[label] = self.doc_count(label)
             doc_inverse_counts[label] = self.doc_inverse_count(label)
             total = self.total_doc_count()
+        for label in self.labels:
             logSum = 0.0
             for word in tokens:
                 stem_total_count = self.stem_total_count(word)
                 if stem_total_count == 0.0:
                     continue
                 else:
-                    stem_label_count = self.stem_label_count(word, label)
-                    stem_inverse_label_count = self.stem_inverse_label_count(word, label)
-                    word_prob = stem_label_count / doc_counts[label]
-                    word_inverse_prob = stem_inverse_label_count / doc_inverse_count[label]
+                    word_prob = self.stem_label_count(label, word) / doc_counts[label]
+                    word_inverse_prob = self.stem_inverse_label_count(label, word) / doc_inverse_counts[label]
                     wordicity = word_prob / (word_prob + word_inverse_prob)
 
                     wordicity = (( 1.0 * 0.5) + (stem_total_count * wordicity) ) / (1.0 + stem_total_count )
@@ -107,9 +108,37 @@ class Trainer:
                         wordicity = 0.01
                     elif wordicity == 1:
                         wordicity = 0.99
+                try:
+                    logSum += math.log(1.0 - wordicity) - math.log(wordicity)
+                except ValueError:
+                    print "ValueError"
+            try:
+                scores[label] = 1.0 / (1.0 + math.exp(logSum))
+            except OverflowError:
+                print "OverflowError"
+        return scores
 
-                logSum += math.log(1 - wordicity) - math.log(wordicity)
-            scores[label] = 1.0 / (1.0 + math.exp(logSum))
+    def run_guess_sweep(self):
+        for filename in os.listdir('samples/guessing/short'):
+            if filename[0] != '.':
+                file_path = os.path.join("samples/guessing/short", filename)
+                f = codecs.open(file_path, "r", "utf-8")
+                text = f.read()
+                i = text.find('\n') + 1
+                label, text = text.partition('\n')[0], text[i:]
+                scores = self.guess(text)
+
+    def run_nltk_guess(self, text):
+        tokens = tokenize(text)
+        doc_counts = {}
+        doc_inverse_counts = {}
+        scores = {}
+
+        for word in tokens:
+            word_swn = swn.senti_synset(word)
+            word_prob = self.stem_label_count(label, word) / doc_counts[label]
 
 trainer = Trainer()
+#trainer.run_guess_sweep()
+
 
