@@ -11,7 +11,7 @@ window.fbAsyncInit = function() {
 
 var statusChangeCallback = function (response) {
   if (response.status === "connected") {
-    testAPI();
+    requestHome();
   } else if (response.status === "not_authorized") {
     document.getElementById("status").innerHTML = "Please log into the app";
   } else {
@@ -33,10 +33,12 @@ var checkLoginState = function () {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-var testAPI = function () {
-  console.log("Welcome!");
-  FB.api("/me", function (response) {
-    console.log("Successful login for: " + response.name);
-    document.getElementById("status").innerHTML = "Thanks for logging in";
+var requestHome = function () {
+  FB.api("/me/home", function (response) {
+    console.log(response);
+    var after = response.paging.cursors.after;
+    FB.api("/me/home", { after: after }, function (response) {
+      console.log(response);
+    });
   });
-}
+};
