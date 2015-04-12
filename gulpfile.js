@@ -8,36 +8,15 @@ var gulp = require("gulp"),
   reactify = require("reactify"),
   reload = browserSync.reload;
 
+var jsPath = "website/static/app"
 // Running Bower
 
 gulp.task("bower", function () {
   run ("bower install").exec();
 })
 
-// Validation
 
-.task("lint", function () {
-  return gulp.src(package.paths.js)
-  .pipe(jshint())
-  .pipe(jshint.reporter("default"));
-})
-
-// JS compilation
-
-.task("js", function () {
-  return browserify(package.paths.app)
-  .transform(reactify)
-  .bundle()
-  .pipe(source(package.dest.app))
-  .pipe(gulp.dest(package.dest.dist));
-})
-
-.task("serve", ["bower", "lint", "js"], function () {
-  return gulp.watch([
-    package.paths.js, package.paths.jsx, package.paths.html
-  ], [
-    "lint", "js"
-  ]);
+.task("serve", ["bower"], function () {
 })
 
 .task("default", function () {
