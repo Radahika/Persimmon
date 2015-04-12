@@ -51,7 +51,7 @@ $(document).ready(function () {
  */
 
   var requestHome = function () {
-    FB.api("/me/home", { limit: 100 }, function (response) {
+    FB.api("/me/home", { limit: 500 }, function (response) {
       parseHomeFeed(response.data);
 
       $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
