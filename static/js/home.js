@@ -55,16 +55,13 @@ $(document).ready(function () {
       parseHomeFeed(response.data);
 
       $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
-        console.log(response);
         function display_feed() {
             posts = response.posts
-            console.log(posts)
             for (i = 0; i < posts.length; i++) {
               post = posts[i]
               var template = $('#template').html();
               Mustache.parse(template);
-              console.log(post.text);
-              var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary});
+              var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
               $("#feed").prepend(rendered);
             }
         }
@@ -72,8 +69,11 @@ $(document).ready(function () {
 
       }, "json");
 
-      //var after = response.paging.cursors.after;
-      //requestNext(after);
     });
   };
+
+  $("div.post").click(function() {
+    alert("Here")
+    $(this.find(".full")).toggle( "display" );
+   });
 });
