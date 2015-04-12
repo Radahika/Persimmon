@@ -37,7 +37,8 @@ def summarize(raw_text):
     for position, sentence in enumerate(tokens):
         if len(sentence.split(" ")) > 5:
             document = Document(string=sentence, name=position, stemmer=LEMMA)
-            documents.append(document)
+            if len(document.features) > 0:
+                documents.append(document)
 
     edges = []
     for document in documents:
