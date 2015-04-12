@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "homepage": "https://github.com/Radahika/Persimmon",
   "authors": [
-    "Kevin Hwang <k3vinhwang@gmail.com>"
+    "Kevin Hwang <k3vinhwang@gmail.com>",
+    "Radhika Marvin <radhika.marvin@yahoo.com>"
   ],
   "license": "MIT",
   "directory": "./website/static/bower_components",
