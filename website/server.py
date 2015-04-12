@@ -41,23 +41,25 @@ def summary():
     #return jsonify(result)
 
 @app.route("/filter_page", methods=["POST"])
-def filter_page():
+def filter_page(label="happy"):
     post_string = request.form.get("posts")
-
     posts = json.loads(post_string)
+
+    trainer = train.Trainer()
 
     final_posts = []
 
     for post in posts:
         text = post.get("message", "")
         if len(text):
-            summary = summarizer.summarize(text)
-            final_post = {}
-            final_post["author"] = post.get("from").get("name")
-            final_post["text"] = post.get("message")
-            final_post["summary"] = summary
-            final_posts.append(final_post)
-
+            score = trainer.guess(text)
+            if score[label] >= 0.5:
+                final_post = {}
+                summary = summarizer.summarize(text)
+                final_post["author"] = post.get("from").get("name")
+                final_post["text"] = post.get("message")
+                final_post["summary"] = summary
+                final_posts.append(final_post)
     return jsonify({"posts" : final_posts })
 
 
