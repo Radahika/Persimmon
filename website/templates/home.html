@@ -61,6 +61,24 @@
         </div>
       </nav>
     <!-- end navbar -->
+
+    <!-- start feed -->
+    <div>
+      <h2> Feed </h2>
+        {% for post in feed %}
+        <blockquote>
+          <p>{{ post[1] }}</p>
+          <small><cite title="Source Title">{{ post[0] }}</cite></small>
+        </blockquote>
+        <h2>Example body text</h2>
+            <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+            <p><small>This line of text is meant to be treated as fine print.</small></p>
+            <p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
+            <p>The following snippet of text is <em>rendered as italicized text</em>.</p>
+            <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+        {% endfor %}
+    </div>
+    <!-- end feed -->
   </div> <!-- end container -->
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
