@@ -10,9 +10,9 @@ class Trainer:
         self.labels = []
         self.doc_counts = {}
 
-        for filename in os.listdir('samples/training'):
+        for filename in os.listdir('sentiment/samples/training'):
             if filename[0] != '.':
-                file_path = os.path.join("samples/training", filename)
+                file_path = os.path.join("sentiment/samples/training", filename)
                 f = codecs.open(file_path, "r", "utf-8")
                 text = f.read()
                 i = text.find('\n') + 1
@@ -119,7 +119,7 @@ class Trainer:
         return scores
 
     def run_guess_sweep(self):
-        for filename in os.listdir('samples/guessing/short'):
+        for filename in os.listdir('sentiment/samples/guessing/short'):
             if filename[0] != '.':
                 file_path = os.path.join("samples/guessing/short", filename)
                 f = codecs.open(file_path, "r", "utf-8")
@@ -139,6 +139,5 @@ class Trainer:
             word_prob = self.stem_label_count(label, word) / doc_counts[label]
 
 trainer = Trainer()
-#trainer.run_guess_sweep()
 
 
