@@ -14,24 +14,29 @@
 
 import os
 import sys
+import codecs
 
 import pdb
 
 from pattern.en import tokenize
 from pattern.vector import Document, LEMMA
 
+import nltk.data
+
 import networkx
 import operator
 
 def summarize_file(file_name):
     file_path = os.path.join("samples", file_name)
-    f = open(file_path)
+    f = codecs.open(file_path, "r", "utf-8")
     text = f.read()
     print summarize(text)
 
 
 def summarize(raw_text):
     tokens = tokenize(raw_text)
+
+    pdb.set_trace()
 
     documents = []
     for position, sentence in enumerate(tokens):
