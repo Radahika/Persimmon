@@ -1,4 +1,6 @@
 from tokenizer import tokenize
+import os, codecs
+import pdb
 
 class Trainer:
 
@@ -6,6 +8,18 @@ class Trainer:
         self.db = {}
         self.labels = []
         self.doc_counts = {}
+
+        for filename in os.listdir('samples'):
+            if filename[0] != '.':
+                file_path = os.path.join("samples", filename)
+                f = codecs.open(file_path, "r", "utf-8")
+                first = f.readline()
+                label = first.split()[0]
+                text = f.read()
+                try:
+                    self.train(text, label)
+                except UnicodeDecodeError:
+                    print "UnicodeDecodeError for filename " + filename
 
     def register_label(self, label):
         """ Adds the LABEL to the "database" (in this case, localStorage) so that we
@@ -25,9 +39,11 @@ class Trainer:
             word_dict[word] = 1.0
 
     def increment_doc_count(self, label):
-        """Record how many documents we've seen for a given label
         """
-        if label in self.label_count:
+        Record how many documents we've seen for a given label.
+
+        """
+        if label in self.doc_counts:
             self.doc_counts[label] += 1.0
         else:
             self.doc_counts[label] = 1.0
@@ -95,6 +111,5 @@ class Trainer:
                 logSum += math.log(1 - wordicity) - math.log(wordicity)
             scores[label] = 1.0 / (1.0 + math.exp(logSum))
 
+trainer = Trainer()
 
-if __name__ == '__main__':
-    pass

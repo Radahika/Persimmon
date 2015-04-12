@@ -1,3 +1,5 @@
+informative
+
 It’s fairly common, in technology organizations, for there to be an elaborate hierarchy for prioritizing bugs and features, ranging from “P0″ (severely important) to “P4″ (not at all important) and for work items to be labelled as such. Of those five levels, the typical meanings are something like this:
 
 P0: severely high priority. This gives management and, ideally, the team, the right to be pushy in getting the issue resolved.
