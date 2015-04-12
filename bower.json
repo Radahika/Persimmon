@@ -6,6 +6,7 @@
     "Kevin Hwang <k3vinhwang@gmail.com>"
   ],
   "license": "MIT",
+  "directory": "./website/static/bower_components",
   "ignore": [
     "**/.*",
     "node_modules",
