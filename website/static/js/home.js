@@ -34,25 +34,29 @@ $(document).ready(function () {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
+  var allPosts = [];
+  var parseHomeFeed = function (feed) {
+    for (var i = 0; i < feed.length; i++) {
+      var post = feed[i];
+      allPosts.push(post);
+    }
+  };
+  var requestNext = function (afterToken) {
+    FB.api("/me/home", { after: afterToken }, function (response) {
+      parseHomeFeed(response.data);
+      $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
+        console.log(response);
+      }, "json");
+    });
+  };
+
   var requestHome = function () {
     FB.api("/me/home", function (response) {
       console.log(response);
-      for (var i = 0; i < response.data.length; i++) {
-        var post = response.data[i];
-        if (post.message) {
-          var text = post.message;
-          $.post("/summary", { text: text }, function (response) {
-            console.log("Before text");
-            console.log(text);
-            console.log("After text");
-            console.log(response);
-          });
-        }
-      }
-      //var after = response.paging.cursors.after;
-      //FB.api("/me/home", { after: after }, function (response) {
-      //  console.log(response);
-      //});
+      parseHomeFeed(response.data);
+
+      var after = response.paging.cursors.after;
+      requestNext(after);
     });
   };
 });
