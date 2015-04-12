@@ -50,14 +50,20 @@ def filter_page(label="happy"):
     final_posts = []
 
     for post in posts:
-        text = post.get("message", "")
-        if len(text):
+        text = post.get("message")
+
+        if not text:
+            text = post.get("caption")
+        if not text:
+            text = post.get("story")
+
+        if text:
             score = trainer.guess(text)
             if score[label] >= 0.5:
                 final_post = {}
                 summary = summarizer.summarize(text)
                 final_post["author"] = post.get("from").get("name")
-                final_post["text"] = post.get("message")
+                final_post["text"] = text
                 final_post["summary"] = summary
                 final_posts.append(final_post)
     return jsonify({"posts" : final_posts })
