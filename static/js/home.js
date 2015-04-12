@@ -51,6 +51,7 @@ $(document).ready(function () {
  */
 
   var requestHome = function () {
+    $("body").addClass("loading");
     FB.api("/me/home", { limit: 500 }, function (response) {
       parseHomeFeed(response.data);
 

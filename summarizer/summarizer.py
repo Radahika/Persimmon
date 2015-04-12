@@ -60,7 +60,9 @@ def summarize(raw_text):
 
     summary = []
     sentence_numbers = []
-    for i in range(5):
+
+    num_sentences = 3
+    for i in range(num_sentences):
         if i < len(sorted_ranks):
             node = sorted_ranks[i]
             sentence_numbers.append(node[0])
@@ -70,6 +72,9 @@ def summarize(raw_text):
     for sentence_number in sentence_numbers:
         sentence = tokens[sentence_number]
         summary.append(sentence)
+
+    if len(summary) == 0:
+        summary.append(tokens[0])
 
     return " ".join(summary)
 
