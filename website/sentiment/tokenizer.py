@@ -3,9 +3,8 @@ from nltk.stem import *
 from nltk.stem.porter import *
 from textblob import TextBlob
 
-
 stemmer = SnowballStemmer("english")
-f = open('negative_words.txt', 'r')
+f = open('sentiment/negative_words.txt', 'r')
 negative = set(f.read().split('\n'))
 
 def tokenize(text):
