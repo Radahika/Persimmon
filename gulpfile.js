@@ -6,7 +6,6 @@ var gulp = require("gulp"),
   source = require("vinyl-source-stream"),
   buffer = require("vinyl-buffer"),
   reactify = require("reactify"),
-  package = require("./package.json"),
   reload = browserSync.reload;
 
 // Running Bower
@@ -33,12 +32,18 @@ gulp.task("bower", function () {
   .pipe(gulp.dest(package.dest.dist));
 })
 
-.task("serve", ["bower", "lint", "js", "server"], function () {
+.task("serve", ["bower", "lint", "js"], function () {
   return gulp.watch([
     package.paths.js, package.paths.jsx, package.paths.html
   ], [
     "lint", "js"
   ]);
+})
+
+.task("default", function () {
+  gulp.start("serve");
 });
+
+
 
 
