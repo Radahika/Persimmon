@@ -86,4 +86,4 @@ if __name__ == "__main__":
         filename = "alaska.txt"
     else:
         filename = sys.argv[1]
-    print summarize_file(filename)
+    summarize_file(filename)
