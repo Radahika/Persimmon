@@ -29,6 +29,9 @@ def summary():
     summary = summarizer.summarize(text)
     return summary
 
+@app.route("/filter_page")
+def filter_page():
+    return jsonify(result=5)
 
 if __name__ == "__main__":
     app.run()
