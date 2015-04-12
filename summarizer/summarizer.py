@@ -18,7 +18,6 @@ import codecs
 
 import pdb
 
-from pattern.en import tokenize
 from pattern.vector import Document, LEMMA
 
 import nltk.data
@@ -34,7 +33,8 @@ def summarize_file(file_name):
 
 
 def summarize(raw_text):
-    tokens = tokenize(raw_text)
+    sentence_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    tokens = sentence_tokenizer.tokenize(raw_text.strip())
 
     documents = []
     for position, sentence in enumerate(tokens):
