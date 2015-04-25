@@ -59,22 +59,20 @@ $(document).ready(function () {
       parseHomeFeed(response.data);
 
       $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
-        function display_feed() {
-          $("body").removeClass("loading");
-            var posts = response.posts;
-            for (i = 0; i < posts.length; i++) {
-              var post = posts[i];
-              var template = $('#template').html();
-              Mustache.parse(template);
-              var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
-              $("#feed").prepend(rendered);
-            }
-        }
-        display_feed();
-
+        display_feed(response.posts);
       }, "json");
-
     });
+  };
+
+  var display_feed = function (posts) {
+    $("body").removeClass("loading");
+    for (i = 0; i < posts.length; i++) {
+      var post = posts[i];
+      var template = $('#template').html();
+      Mustache.parse(template);
+      var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
+      $("#feed").prepend(rendered);
+    }
   };
 
   $("div.post").click(function() {
