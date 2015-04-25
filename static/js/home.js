@@ -74,9 +74,4 @@ $(document).ready(function () {
       $("#feed").prepend(rendered);
     }
   };
-
-  $("div.post").click(function() {
-    alert("Here")
-    $(this.find(".full")).toggle( "display" );
-   });
 });
