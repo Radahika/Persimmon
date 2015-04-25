@@ -1,6 +1,12 @@
 from tokenizer import tokenize
 import os, codecs, math
 import pdb
+import nltk
+
+curr_dir = os.getcwd()
+nltk_dir = os.path.join(curr_dir, 'nltk_data')
+nltk.data.path.append(nltk_dir)
+
 from nltk.corpus import sentiwordnet as swn
 
 class Trainer:
