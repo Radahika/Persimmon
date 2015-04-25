@@ -1,103 +1,51 @@
-<html lang="en">
+{% extends "base.html" %}
 
-    <head>
-        <meta charset="utf-8">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
-        <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
 
-        <title>Persimmon</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootswatch.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap/less/bootswatch.less') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap/less/variables.less') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-    </head>
+{% block body %}
+<div id="facebookLoginButton">
+  <fb:login-button scope="public_profile,email,read_stream" onlogin="checkLoginState()">
+  </fb:login-button>
+</div>
 
-    <body>
-      <div class="container"> <!-- start container -->
-        <!-- Navbar
-        ================================================== -->
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Persimmon</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Happy Posts <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Sad Posts</a></li>
-                <li><a href="#">Angry Posts</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">All Filters <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Happy Posts</a></li>
-                    <li><a href="#">Sad Posts</a></li>
-                    <li><a href="#">Angry Posts</a></li>
-                    <li><a href="#">Informative Posts</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">View Unfiltered Posts</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Logout</a></li>
-              </ul>
-            </div>
+<!-- start feed -->
+<div>
+  <h2> Happy Feed </h2>
+  <div id="status"></div>
+  <div id="feed">
+    <li>
+      {% raw %}
+      <script id="template" type="x-tmpl-mustache">
+        <div id={{ id }} class="post">
+          <blockquote>
+            <p>{{ summary }}</p>
+            <small><cite title="Source Title">{{ author }}</cite></small>
+          </blockquote>
+          <div style="display: none;" class="full">
+            <h2>Example body text</h2>
+            <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+            <p><small>This line of text is meant to be treated as fine print.</small></p>
+            <p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
+            <p>The following snippet of text is <em>rendered as italicized text</em>.</p>
+            <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
           </div>
-        </nav>
-        <!-- end navbar -->
-
-        <div id="facebookLoginButton">
-          <fb:login-button scope="public_profile,email,read_stream" onlogin="checkLoginState()">
-          </fb:login-button>
         </div>
 
-        <!-- start feed -->
-        <div>
-          <h2> Happy Feed </h2>
-          <div id="status"></div>
-          <div id="feed">
-            <li>
-              {% raw %}
-              <script id="template" type="x-tmpl-mustache">
-                <div id={{ id }} class="post">
-                  <blockquote>
-                    <p>{{ summary }}</p>
-                    <small><cite title="Source Title">{{ author }}</cite></small>
-                    </blockquote>
-                  <div style="display: none;" class="full">
-                    <h2>Example body text</h2>
-                    <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
-                    <p><small>This line of text is meant to be treated as fine print.</small></p>
-                    <p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
-                    <p>The following snippet of text is <em>rendered as italicized text</em>.</p>
-                    <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
-                  </div>
-               </div>
+      </script>
+      {% endraw %}
+    </li>
+  </div>
+  <!-- end feed -->
+</div>
+<div class="modal"></div>
 
-                </script>
-                {% endraw %}
-              </li>
-            </div>
-        <!-- end feed -->
-      </div> <!-- end container -->
+{% endblock %}
 
-      <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/mustache.js') }}" type="text/javascript"></script>
-      <script src="{{ url_for('static', filename='js/home.js') }}"></script>
-      <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootswatch.js') }}"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.js') }}">\x3C/script>')</script>
-       <!-- mustache.js render template -->
+{% block scripts %}
 
-       <div class="modal"></div>
-    </body>
-</html>
+<script src="{{ url_for('static', filename='js/mustache.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+{% endblock %}
