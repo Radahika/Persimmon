@@ -1,49 +1,28 @@
 $(document).ready(function () {
-  $("#navbar_happy").addClass("active");
 
-  // Facebook login constants
-  var LOGIN_STATUS_LOGGED_IN = "connected";
-  var LOGIN_STATUS_NEED_APP_LOGIN = "not_authorized";
-
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '802564089839704',
-      xfbml      : true,
-      version    : 'v2.3'
-    });
-    FB.getLoginStatus(function (response) {
-      statusChangeCallback(response);
-    });
-  };
-
-  var statusChangeCallback = function (response) {
+  // Facebook Login/Logout
+  window.statusChangeCallback = function (response) {
     var $status = $("#status");
     var $button = $("#facebookLoginButton");
+    var $feed = $("#feed");
+    var $logout = $("#logout");
+    $feed.html("");
     if (response.status === LOGIN_STATUS_LOGGED_IN) {
       $status.text("");
       requestHome();
       $button.hide();
+      $logout.show();
     } else if (response.status === LOGIN_STATUS_NEED_APP_LOGIN) {
+      $button.show();
       $status.text("Please log into the app");
+      $logout.hide();
     } else {
+      $button.show();
       $status.text("Please log into Facebook.");
+      $logout.hide();
     }
   };
 
-  window.checkLoginState = function () {
-    FB.getLoginStatus(function (response) {
-      statusChangeCallback(response);
-    });
-  };
-
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
   var allPosts = [];
   var parseHomeFeed = function (feed) {
@@ -51,34 +30,53 @@ $(document).ready(function () {
       var post = feed[i];
       allPosts.push(post);
     }
+    var sentiment = window.location.hash.substr(1);
+
+    if (sentiment.length > 0) {
+      requestFilter(sentiment);
+    } else {
+      requestFilter();
+    }
   };
 
   var requestHome = function () {
     $("body").addClass("loading");
     FB.api("/me/home", { limit: 50 }, function (response) {
       parseHomeFeed(response.data);
-
-      $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
-        function display_feed() {
-          $("body").removeClass("loading");
-            var posts = response.posts;
-            for (i = 0; i < posts.length; i++) {
-              var post = posts[i];
-              var template = $('#template').html();
-              Mustache.parse(template);
-              var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
-              $("#feed").prepend(rendered);
-            }
-        }
-        display_feed();
-
-      }, "json");
-
     });
   };
 
-  $("div.post").click(function() {
-    alert("Here")
-    $(this.find(".full")).toggle( "display" );
-   });
+  var display_feed = function (posts) {
+    var $feed = $("#feed");
+    $feed.html("");
+    $("body").removeClass("loading");
+    for (i = 0; i < posts.length; i++) {
+      var post = posts[i];
+      var template = $('#template').html();
+      Mustache.parse(template);
+      var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
+      $feed.prepend(rendered);
+    }
+  };
+
+  var requestFilter = function (sentiment) {
+    if (!sentiment) {
+      sentiment = "all";
+    }
+
+    // allPosts is a global variable
+    $.post("/filter_page", { "posts": JSON.stringify(allPosts), "sentiment": sentiment }, function (response) {
+      display_feed(response.posts);
+    }, "json");
+  };
+
+
+  // Navbar Shenanigans
+  $(".sentiment_filter").click(function () {
+    var $this = $(this);
+    var id = $this.attr("id");
+
+    var wantedSentiment = id.split("_")[1];
+    requestFilter(wantedSentiment);
+  });
 });
