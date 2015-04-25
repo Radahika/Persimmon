@@ -11,16 +11,18 @@ $(document).ready(function () {
   };
 
   var statusChangeCallback = function (response) {
+    var $status = $("#status");
     if (response.status === "connected") {
+      $status.text("");
       requestHome();
     } else if (response.status === "not_authorized") {
-      document.getElementById("status").innerHTML = "Please log into the app";
+      $status.text("Please log into the app");
     } else {
-      document.getElementById("status").innerHTML = "Please log into Facebook";
+      $status.text("Please log into Facebook.");
     }
   };
 
-  var checkLoginState = function () {
+  window.checkLoginState = function () {
     FB.getLoginStatus(function (response) {
       statusChangeCallback(response);
     });
