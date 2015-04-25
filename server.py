@@ -22,6 +22,10 @@ def summary():
     summary = summarizer.summarize(text)
     return summary
 
+@app.route("/summarizer", methods=["GET"])
+def summarizer():
+    return render_template("summarizer.html");
+
 @app.route("/filter_page", methods=["POST"])
 def filter_page(label="happy"):
     post_string = request.form.get("posts")
