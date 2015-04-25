@@ -46,7 +46,7 @@ def filter_page():
 
         if text:
             score = trainer.guess(text)
-            if label == "all" or score[label] >= 0.60:
+            if label == "all" or score[label] >= 0.70:
                 final_post = {}
                 summary = summarizer.summarize(text)
                 final_post["author"] = post.get("from").get("name")
