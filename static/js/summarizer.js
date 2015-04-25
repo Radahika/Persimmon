@@ -8,7 +8,7 @@ $(document).ready(function () {
         text: $("#unsummarizedText").val()
       },
       success: function (data) {
-        console.log(data);
+        $("#summary").text(data);
       },
       error: function (xhr, textStatus, error) {
         console.log("Error in fetching summary: " + textStatus);
