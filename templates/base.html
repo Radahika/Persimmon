@@ -33,20 +33,10 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
-              <li id="navbar_happy"><a href="#">Happy Posts<span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Sad Posts</a></li>
-              <li><a href="#">Angry Posts</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">All Filters <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Happy Posts</a></li>
-                  <li><a href="#">Sad Posts</a></li>
-                  <li><a href="#">Angry Posts</a></li>
-                  <li><a href="#">Informative Posts</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">View Unfiltered Posts</a></li>
-                </ul>
-              </li>
+              <li id="navbar_happy" class="sentiment_filter"><a href="#">Happy Posts</a></li>
+              <li id="navbar_sad" class="sentiment_filter"><a href="#">Sad Posts</a></li>
+              <li id="navbar_negative" class="sentiment_filter"><a href="#">Negative Posts</a></li>
+              <li id="navbar_all" class="sentiment_filter"><a href="#">All Posts</a></li>
               <li id="navbar_summarizer"><a href="/summarizer_page">Summarizer</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

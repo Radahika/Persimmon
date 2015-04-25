@@ -12,34 +12,29 @@
 
 <!-- start feed -->
 <div>
-  <h2> Happy Feed </h2>
+  <h2>Current Feed </h2>
   <div id="status"></div>
-  <div id="feed">
-    <li>
-      {% raw %}
-      <script id="template" type="x-tmpl-mustache">
-        <div id={{ id }} class="post">
-          <blockquote>
-            <p>{{ summary }}</p>
-            <small><cite title="Source Title">{{ author }}</cite></small>
-          </blockquote>
-          <div style="display: none;" class="full">
-            <h2>Example body text</h2>
-            <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
-            <p><small>This line of text is meant to be treated as fine print.</small></p>
-            <p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
-            <p>The following snippet of text is <em>rendered as italicized text</em>.</p>
-            <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
-          </div>
-        </div>
-
-      </script>
-      {% endraw %}
-    </li>
-  </div>
-  <!-- end feed -->
+  <div id="feed"></div>
 </div>
+<!-- end feed -->
+
+<!-- Loading modal -->
 <div class="modal"></div>
+
+<!-- Mustache Template -->
+{% raw %}
+<script id="template" type="x-tmpl-mustache">
+  <div id={{ id }} class="post">
+    <blockquote>
+      <p>{{ summary }}</p>
+      <small><cite title="Source Title">{{ author }}</cite></small>
+    </blockquote>
+  </div>
+
+</script>
+{% endraw %}
+
+
 
 {% endblock %}
 

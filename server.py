@@ -27,7 +27,8 @@ def summarizer_page():
     return render_template("summarizer.html");
 
 @app.route("/filter_page", methods=["POST"])
-def filter_page(label="happy"):
+def filter_page():
+    label = request.form.get("sentiment");
     post_string = request.form.get("posts")
     posts = json.loads(post_string)
 
@@ -45,7 +46,7 @@ def filter_page(label="happy"):
 
         if text:
             score = trainer.guess(text)
-            if score[label] >= 0.60:
+            if label == "all" or score[label] >= 0.60:
                 final_post = {}
                 summary = summarizer.summarize(text)
                 final_post["author"] = post.get("from").get("name")

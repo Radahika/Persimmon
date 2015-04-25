@@ -1,5 +1,7 @@
 $(document).ready(function () {
   $("#navbar_summarizer").addClass("active");
+
+  // Summarizer Form
   $("#summarizerForm").submit(function (event) {
     event.preventDefault();
 
@@ -15,5 +17,15 @@ $(document).ready(function () {
         console.log("Error in fetching summary: " + textStatus);
       }
     });
+  });
+
+  // Navbar
+  $(".sentiment_filter").click(function () {
+    var $this = $(this);
+    var id = $this.attr("id");
+
+    var wantedSentiment = id.split("_")[1];
+
+    window.location.href = "/#"+wantedSentiment;
   });
 });

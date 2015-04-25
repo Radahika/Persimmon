@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  $("#navbar_happy").addClass("active");
-
   // Facebook login constants
   var LOGIN_STATUS_LOGGED_IN = "connected";
   var LOGIN_STATUS_NEED_APP_LOGIN = "not_authorized";
@@ -51,34 +49,53 @@ $(document).ready(function () {
       var post = feed[i];
       allPosts.push(post);
     }
+    var sentiment = window.location.hash.substr(1);
+
+    if (sentiment.length > 0) {
+      requestFilter(sentiment);
+    } else {
+      requestFilter();
+    }
   };
 
   var requestHome = function () {
     $("body").addClass("loading");
     FB.api("/me/home", { limit: 50 }, function (response) {
       parseHomeFeed(response.data);
-
-      $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
-        function display_feed() {
-          $("body").removeClass("loading");
-            var posts = response.posts;
-            for (i = 0; i < posts.length; i++) {
-              var post = posts[i];
-              var template = $('#template').html();
-              Mustache.parse(template);
-              var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
-              $("#feed").prepend(rendered);
-            }
-        }
-        display_feed();
-
-      }, "json");
-
     });
   };
 
-  $("div.post").click(function() {
-    alert("Here")
-    $(this.find(".full")).toggle( "display" );
-   });
+  var display_feed = function (posts) {
+    var $feed = $("#feed");
+    $feed.html("");
+    $("body").removeClass("loading");
+    for (i = 0; i < posts.length; i++) {
+      var post = posts[i];
+      var template = $('#template').html();
+      Mustache.parse(template);
+      var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
+      $feed.prepend(rendered);
+    }
+  };
+
+  var requestFilter = function (sentiment) {
+    if (!sentiment) {
+      sentiment = "all";
+    }
+
+    // allPosts is a global variable
+    $.post("/filter_page", { "posts": JSON.stringify(allPosts), "sentiment": sentiment }, function (response) {
+      display_feed(response.posts);
+    }, "json");
+  };
+
+
+  // Navbar Shenanigans
+  $(".sentiment_filter").click(function () {
+    var $this = $(this);
+    var id = $this.attr("id");
+
+    var wantedSentiment = id.split("_")[1];
+    requestFilter(wantedSentiment);
+  });
 });
