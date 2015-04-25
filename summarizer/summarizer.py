@@ -31,6 +31,9 @@ def summarize_file(file_path):
 
 
 def summarize(raw_text):
+    if len(raw_text) == 0:
+        return ""
+
     sentence_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     tokens = sentence_tokenizer.tokenize(raw_text.strip())
 
