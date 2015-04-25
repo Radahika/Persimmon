@@ -51,29 +51,40 @@ $(document).ready(function () {
       var post = feed[i];
       allPosts.push(post);
     }
+    requestFilter();
   };
 
   var requestHome = function () {
     $("body").addClass("loading");
     FB.api("/me/home", { limit: 50 }, function (response) {
       parseHomeFeed(response.data);
-
-      $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
-        display_feed(response.posts);
-      }, "json");
     });
   };
 
   var display_feed = function (posts) {
+    var $feed = $("#feed");
+    $feed.html("");
     $("body").removeClass("loading");
     for (i = 0; i < posts.length; i++) {
       var post = posts[i];
       var template = $('#template').html();
       Mustache.parse(template);
       var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
-      $("#feed").prepend(rendered);
+      $feed.prepend(rendered);
     }
   };
+
+  var requestFilter = function (sentiment) {
+    if (!sentiment) {
+      sentiment = "happy";
+    }
+
+    // allPosts is a global variable
+    $.post("/filter_page", { "posts": JSON.stringify(allPosts), "sentiment": sentiment }, function (response) {
+      display_feed(response.posts);
+    }, "json");
+  };
+
 
   // Navbar Shenanigans
   $(".sentiment_filter").click(function () {
@@ -81,5 +92,6 @@ $(document).ready(function () {
     var id = $this.attr("id");
 
     var wanted_sentiment = id.split("_")[1];
+    requestFilter(wanted_sentiment);
   });
 });

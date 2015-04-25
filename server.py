@@ -27,7 +27,8 @@ def summarizer_page():
     return render_template("summarizer.html");
 
 @app.route("/filter_page", methods=["POST"])
-def filter_page(label="happy"):
+def filter_page():
+    label = request.form.get("sentiment");
     post_string = request.form.get("posts")
     posts = json.loads(post_string)
 
