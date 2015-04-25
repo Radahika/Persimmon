@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  // Facebook login constants
+  var LOGIN_STATUS_LOGGED_IN = "connected";
+  var LOGIN_STATUS_NEED_APP_LOGIN = "not_authorized";
+
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '802564089839704',
@@ -11,16 +16,20 @@ $(document).ready(function () {
   };
 
   var statusChangeCallback = function (response) {
-    if (response.status === "connected") {
+    var $status = $("#status");
+    var $button = $("#facebookLoginButton");
+    if (response.status === LOGIN_STATUS_LOGGED_IN) {
+      $status.text("");
       requestHome();
-    } else if (response.status === "not_authorized") {
-      document.getElementById("status").innerHTML = "Please log into the app";
+      $button.hide();
+    } else if (response.status === LOGIN_STATUS_NEED_APP_LOGIN) {
+      $status.text("Please log into the app");
     } else {
-      document.getElementById("status").innerHTML = "Please log into Facebook";
+      $status.text("Please log into Facebook.");
     }
   };
 
-  var checkLoginState = function () {
+  window.checkLoginState = function () {
     FB.getLoginStatus(function (response) {
       statusChangeCallback(response);
     });
@@ -42,25 +51,17 @@ $(document).ready(function () {
     }
   };
 
-  /*
-  var requestNext = function (afterToken) {
-    FB.api("/me/home", { after: afterToken, limit: 100 }, function (response) {
-      parseHomeFeed(response.data);
-    });
-  };
- */
-
   var requestHome = function () {
     $("body").addClass("loading");
-    FB.api("/me/home", { limit: 500 }, function (response) {
+    FB.api("/me/home", { limit: 50 }, function (response) {
       parseHomeFeed(response.data);
 
       $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
         function display_feed() {
           $("body").removeClass("loading");
-            posts = response.posts
+            var posts = response.posts;
             for (i = 0; i < posts.length; i++) {
-              post = posts[i]
+              var post = posts[i];
               var template = $('#template').html();
               Mustache.parse(template);
               var rendered = Mustache.render(template, {"author": post.author, "text": post.text, "summary": post.summary, "id":i});
