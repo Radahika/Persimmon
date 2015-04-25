@@ -1,47 +1,24 @@
 $(document).ready(function () {
-  // Facebook login constants
-  var LOGIN_STATUS_LOGGED_IN = "connected";
-  var LOGIN_STATUS_NEED_APP_LOGIN = "not_authorized";
 
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '802564089839704',
-      xfbml      : true,
-      version    : 'v2.3'
-    });
-    FB.getLoginStatus(function (response) {
-      statusChangeCallback(response);
-    });
-  };
-
-  var statusChangeCallback = function (response) {
+  // Facebook Login/Logout
+  window.statusChangeCallback = function (response) {
     var $status = $("#status");
     var $button = $("#facebookLoginButton");
+    var $feed = $("#feed");
+    $feed.html("");
     if (response.status === LOGIN_STATUS_LOGGED_IN) {
       $status.text("");
       requestHome();
       $button.hide();
     } else if (response.status === LOGIN_STATUS_NEED_APP_LOGIN) {
+      $button.show();
       $status.text("Please log into the app");
     } else {
+      $button.show();
       $status.text("Please log into Facebook.");
     }
   };
 
-  window.checkLoginState = function () {
-    FB.getLoginStatus(function (response) {
-      statusChangeCallback(response);
-    });
-  };
-
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
   var allPosts = [];
   var parseHomeFeed = function (feed) {
