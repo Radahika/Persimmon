@@ -22,8 +22,8 @@ def summary():
     summary = summarizer.summarize(text)
     return summary
 
-@app.route("/summarizer", methods=["GET"])
-def summarizer():
+@app.route("/summarize_page", methods=["GET"])
+def summarize_page():
     return render_template("summarizer.html");
 
 @app.route("/filter_page", methods=["POST"])
