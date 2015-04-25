@@ -17,9 +17,11 @@ $(document).ready(function () {
 
   var statusChangeCallback = function (response) {
     var $status = $("#status");
+    var $button = $("#facebookLoginButton");
     if (response.status === LOGIN_STATUS_LOGGED_IN) {
       $status.text("");
       requestHome();
+      $button.hide();
     } else if (response.status === LOGIN_STATUS_NEED_APP_LOGIN) {
       $status.text("Please log into the app");
     } else {
