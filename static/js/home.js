@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  $("#navbar_happy").addClass("active");
-
   // Facebook login constants
   var LOGIN_STATUS_LOGGED_IN = "connected";
   var LOGIN_STATUS_NEED_APP_LOGIN = "not_authorized";
@@ -76,7 +74,7 @@ $(document).ready(function () {
 
   var requestFilter = function (sentiment) {
     if (!sentiment) {
-      sentiment = "happy";
+      sentiment = "all";
     }
 
     // allPosts is a global variable
