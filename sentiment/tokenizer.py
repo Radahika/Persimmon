@@ -2,13 +2,16 @@ import nltk
 from nltk.stem import *
 from nltk.stem.porter import *
 from textblob import TextBlob
+from nltk.corpus import stopwords
 
 stemmer = SnowballStemmer("english")
 f = open('sentiment/negative_words.txt', 'r')
 negative = set(f.read().split('\n'))
+stop = set(stopwords.words('english'))
 
 def tokenize(text):
     words = TextBlob(text).words.lower()
+    words = filter(lambda w: not w in stop, words)
     tokens = [0]*len(words)
     i = 0
     while i < len(words):

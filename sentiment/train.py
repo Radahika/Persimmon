@@ -12,15 +12,21 @@ class Trainer:
 
         for filename in os.listdir('sentiment/samples/training'):
             if filename[0] != '.':
-                file_path = os.path.join("sentiment/samples/training", filename)
-                f = codecs.open(file_path, "r", "utf-8")
-                text = f.read()
-                i = text.find('\n') + 1
-                label, text = text.partition('\n')[0], text[i:]
-                try:
-                    self.train(text, label)
-                except UnicodeDecodeError:
-                    print "UnicodeDecodeError for filename " + filename
+                file_dir = os.path.join("sentiment/samples/training", filename)
+                if os.path.isdir(file_dir):
+                    for filename in os.listdir(file_dir):
+                        print filename
+                        file_path = os.path.join(file_dir, filename)
+                        self.open_files(file_path)
+                elif os.path.isfile(file_dir):
+                    self.open_files(file_dir)
+
+    def open_files(self, file_path):
+        f = codecs.open(file_path, "r", "utf-8")
+        text = f.read()
+        i = text.find('\n') + 1
+        label, text = text.partition('\n')[0], text[i:]
+        self.train(text, label)
 
     def register_label(self, label):
         """ Adds the LABEL to the "database" (in this case, localStorage) so that we
@@ -137,7 +143,21 @@ class Trainer:
         for word in tokens:
             word_swn = swn.senti_synset(word)
             word_prob = self.stem_label_count(label, word) / doc_counts[label]
+            print word_prob, word_swn
+
+    def arg_max(self, text):
+        scores = self.guess(text)
+        mx_label = None
+        mx_score = 0
+        #print self.db['angry']
+        #print scores
+        for label in scores:
+            if scores[label] > mx_score:
+                mx_label, mx_score = label, scores[label]
+        #print mx_label, mx_score
+
 
 trainer = Trainer()
+#trainer.run_nltk_guess("I am just so so so happy!!!!")
 
 
