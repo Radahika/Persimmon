@@ -5,17 +5,21 @@ $(document).ready(function () {
     var $status = $("#status");
     var $button = $("#facebookLoginButton");
     var $feed = $("#feed");
+    var $logout = $("#logout");
     $feed.html("");
     if (response.status === LOGIN_STATUS_LOGGED_IN) {
       $status.text("");
       requestHome();
       $button.hide();
+      $logout.show();
     } else if (response.status === LOGIN_STATUS_NEED_APP_LOGIN) {
       $button.show();
       $status.text("Please log into the app");
+      $logout.hide();
     } else {
       $button.show();
       $status.text("Please log into Facebook.");
+      $logout.hide();
     }
   };
 
