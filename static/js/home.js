@@ -49,7 +49,13 @@ $(document).ready(function () {
       var post = feed[i];
       allPosts.push(post);
     }
-    requestFilter();
+    var sentiment = window.location.hash.substr(1);
+
+    if (sentiment.length > 0) {
+      requestFilter(sentiment);
+    } else {
+      requestFilter();
+    }
   };
 
   var requestHome = function () {
@@ -89,7 +95,7 @@ $(document).ready(function () {
     var $this = $(this);
     var id = $this.attr("id");
 
-    var wanted_sentiment = id.split("_")[1];
-    requestFilter(wanted_sentiment);
+    var wantedSentiment = id.split("_")[1];
+    requestFilter(wantedSentiment);
   });
 });
