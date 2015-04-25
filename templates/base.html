@@ -40,7 +40,7 @@
               <li id="navbar_summarizer"><a href="/summarizer_page">Summarizer</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Logout</a></li>
+              <li id="logout"><a href="#">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -55,6 +55,7 @@
     <script src="{{ url_for('static', filename='js/mustache.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootswatch.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
 
     {% block scripts %}{% endblock %}
     <!-- mustache.js render template -->
