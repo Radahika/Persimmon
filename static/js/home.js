@@ -74,4 +74,9 @@ $(document).ready(function () {
       $("#feed").prepend(rendered);
     }
   };
+
+  // Navbar Shenanigans
+  $(".sentiment_filter").click(function () {
+    console.log(this);
+  });
 });
