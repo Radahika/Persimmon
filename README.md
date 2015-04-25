@@ -6,8 +6,8 @@ View at https://persimmon-soap.herokuapp.com/
 Persimmon is a two-fold text analysis project.
 
 ### Sentiment Analysis
-First, as a sentiment analysis of Facebook feed, persimmon categorizes your Facebook statuses
-as positive or negative using naive baye classifiers and the NLTK platform.
+Persimmon uses naive Bayes classifiers and the NLTK platform to perform sentiment analysis on
+your Facebook feed and categorize statuses as positive or negative.
 
 ### Article Summarizer
 Persimmon also contains an implementation of Flipboard's [text
