@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  // Facebook login constants
+  var LOGIN_STATUS_LOGGED_IN = "connected";
+  var LOGIN_STATUS_NEED_APP_LOGIN = "not_authorized";
+
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '802564089839704',
@@ -12,10 +17,10 @@ $(document).ready(function () {
 
   var statusChangeCallback = function (response) {
     var $status = $("#status");
-    if (response.status === "connected") {
+    if (response.status === LOGIN_STATUS_LOGGED_IN) {
       $status.text("");
       requestHome();
-    } else if (response.status === "not_authorized") {
+    } else if (response.status === LOGIN_STATUS_NEED_APP_LOGIN) {
       $status.text("Please log into the app");
     } else {
       $status.text("Please log into Facebook.");
