@@ -15,23 +15,27 @@
   <h2> Happy Feed </h2>
   <div id="status"></div>
   <div id="feed">
-    <li>
-      {% raw %}
-      <script id="template" type="x-tmpl-mustache">
-        <div id={{ id }} class="post">
-          <blockquote>
-            <p>{{ summary }}</p>
-            <small><cite title="Source Title">{{ author }}</cite></small>
-          </blockquote>
-        </div>
-
-      </script>
-      {% endraw %}
-    </li>
   </div>
   <!-- end feed -->
 </div>
+
+<!-- Loading modal -->
 <div class="modal"></div>
+
+<!-- Mustache Template -->
+{% raw %}
+<script id="template" type="x-tmpl-mustache">
+  <div id={{ id }} class="post">
+    <blockquote>
+      <p>{{ summary }}</p>
+      <small><cite title="Source Title">{{ author }}</cite></small>
+    </blockquote>
+  </div>
+
+</script>
+{% endraw %}
+
+
 
 {% endblock %}
 
