@@ -77,6 +77,9 @@ $(document).ready(function () {
 
   // Navbar Shenanigans
   $(".sentiment_filter").click(function () {
-    console.log(this);
+    var $this = $(this);
+    var id = $this.attr("id");
+
+    var wanted_sentiment = id.split("_")[1];
   });
 });
