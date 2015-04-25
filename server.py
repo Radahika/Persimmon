@@ -44,7 +44,7 @@ def filter_page(label="happy"):
             text = post.get("story")
 
         if text:
-            score = trainer.arg_max(text)
+            score = trainer.guess(text)
             if score[label] >= 0.60:
                 final_post = {}
                 summary = summarizer.summarize(text)
