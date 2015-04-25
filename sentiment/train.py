@@ -12,7 +12,7 @@ class Trainer:
 
         for filename in os.listdir('sentiment/samples/training'):
             if filename[0] != '.':
-                file_dir = os.path.join("sentiment/samples/training", filename)
+                file_dir = os.path.join("sentiment", "samples", "training", filename)
                 if os.path.isdir(file_dir):
                     for filename in os.listdir(file_dir):
                         file_path = os.path.join(file_dir, filename)
