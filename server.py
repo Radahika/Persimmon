@@ -22,24 +22,6 @@ def summary():
     summary = summarizer.summarize(text)
     return summary
 
-#@app.route("/filter_page")
-#def filter_page(label="happy"):
-    #feed = [{"author": "Kevin Hwang", "text": "Radhika Marvin is hott!"},
-                #{"author": "Radhika Marvin", "text": "Kevin has a cute butt!!!"},
-                #{"author": "Dizzy Tarakci", "text": "I hate my sad life. O-chem sucks"}
-              #]
-    #trainer = train.Trainer() #Automatically run trainer on sampled data
-    #result = {}
-    #result["posts"] = []
-    #for post in feed:
-        #score = trainer.guess(post["text"])
-        #print score
-        #if score[label] >= 0.75:
-            #summary = summarizer.summarize(post["text"])
-            #post["summary"] = summary
-            #result["posts"].append(post)
-    #return jsonify(result)
-
 @app.route("/filter_page", methods=["POST"])
 def filter_page(label="happy"):
     post_string = request.form.get("posts")
@@ -59,7 +41,7 @@ def filter_page(label="happy"):
 
         if text:
             score = trainer.guess(text)
-            if score[label] >= 0.5:
+            if score[label] >= 0.75:
                 final_post = {}
                 summary = summarizer.summarize(text)
                 final_post["author"] = post.get("from").get("name")

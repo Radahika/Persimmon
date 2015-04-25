@@ -57,6 +57,7 @@ $(document).ready(function () {
 
       $.post("/filter_page", { "posts": JSON.stringify(allPosts) }, function (response) {
         function display_feed() {
+          $("body").removeClass("loading");
             posts = response.posts
             for (i = 0; i < posts.length; i++) {
               post = posts[i]
