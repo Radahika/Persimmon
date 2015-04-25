@@ -15,7 +15,6 @@ class Trainer:
                 file_dir = os.path.join("sentiment/samples/training", filename)
                 if os.path.isdir(file_dir):
                     for filename in os.listdir(file_dir):
-                        print filename
                         file_path = os.path.join(file_dir, filename)
                         self.open_files(file_path)
                 elif os.path.isfile(file_dir):
@@ -149,15 +148,11 @@ class Trainer:
         scores = self.guess(text)
         mx_label = None
         mx_score = 0
-        #print self.db['angry']
-        #print scores
         for label in scores:
             if scores[label] > mx_score:
                 mx_label, mx_score = label, scores[label]
-        #print mx_label, mx_score
-
+        return mx_label, mx_score
 
 trainer = Trainer()
-#trainer.run_nltk_guess("I am just so so so happy!!!!")
 
 

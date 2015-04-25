@@ -8,7 +8,6 @@ import pdb
 
 from summarizer import summarizer
 from sentiment import train
-from sentiment import example
 
 app = Flask(__name__)
 app.debug = True
@@ -45,8 +44,8 @@ def filter_page(label="happy"):
             text = post.get("story")
 
         if text:
-            score = trainer.guess(text)
-            if score[label] >= 0.75:
+            score = trainer.arg_max(text)
+            if score[label] >= 0.60:
                 final_post = {}
                 summary = summarizer.summarize(text)
                 final_post["author"] = post.get("from").get("name")
@@ -54,15 +53,6 @@ def filter_page(label="happy"):
                 final_post["summary"] = summary
                 final_posts.append(final_post)
     return jsonify({"posts" : final_posts })
-
-@app.route('/training')
-def training():
-    trainer = train.Trainer()
-    #print trainer.arg_max("I am just so so so happy!!!")
-    #print trainer.arg_max("Fuck life. I'm so done with this shit. Ugh.")
-    return render_template("home.html")
-
-
 
 if __name__ == "__main__":
     app.run()
