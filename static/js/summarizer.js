@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  $("#navbar_summarizer").addClass("active");
   $("#summarizerForm").submit(function (event) {
     event.preventDefault();
 
